@@ -20,11 +20,17 @@ subprojects {
         mavenCentral()
     }
 
+
     dependencyManagement {
         imports {
-            mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
-            mavenBom("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}")
+//            mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+//            mavenBom("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}")
         }
+    }
+
+    compileJava {
+        sourceCompatibility = 11
+        targetCompatibility = 11
     }
 
 }

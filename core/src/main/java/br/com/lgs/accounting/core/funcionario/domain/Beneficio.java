@@ -11,6 +11,18 @@ public class Beneficio {
         this.valeTransporte = valeTransporte;
     }
 
+    public Boolean getPlanoSaude() {
+        return planoSaude;
+    }
+
+    public Boolean getPlanoDental() {
+        return planoDental;
+    }
+
+    public Boolean getValeTransporte() {
+        return valeTransporte;
+    }
+
     public static class Builder {
         private Boolean planoSaude;
         private Boolean planoDental;

@@ -22,8 +22,8 @@ public abstract class Desconto {
         descontos.putAll(desconto);
 
         while(proximoDesconto != null) {
-            Map<String, BigDecimal> opa = proximoDesconto.realizarCalculo(funcionario);
-            descontos.putAll(opa);
+            Map<String, BigDecimal> valorDesconto = proximoDesconto.realizarCalculo(funcionario);
+            descontos.putAll(valorDesconto);
             this.proximoDesconto = proximoDesconto.getProximoDesconto();
         }
 

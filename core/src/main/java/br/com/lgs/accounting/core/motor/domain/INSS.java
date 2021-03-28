@@ -1,6 +1,5 @@
 package br.com.lgs.accounting.core.motor.domain;
 
-import br.com.lgs.accounting.core.common.exception.BusinessRuleException;
 import br.com.lgs.accounting.core.funcionario.domain.Funcionario;
 
 import java.math.BigDecimal;
@@ -28,6 +27,7 @@ public class INSS extends Desconto {
 
         BigDecimal salario = funcionario.getSalario().setScale(2, RoundingMode.HALF_UP);
         BigDecimal desconto = BigDecimal.ZERO;
+
         if(salario.doubleValue() <= TETO_FAIXA_1)
             desconto = primeiraFaixa();
         else if(salario.doubleValue() > TETO_FAIXA_1 && salario.doubleValue() <= TETO_FAIXA_2)

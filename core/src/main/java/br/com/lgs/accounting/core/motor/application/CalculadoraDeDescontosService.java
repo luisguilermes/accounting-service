@@ -7,11 +7,9 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 public class CalculadoraDeDescontosService {
-    private final Funcionario funcionario;
     private final Desconto desconto;
 
-    public CalculadoraDeDescontosService(Funcionario funcionario) {
-        this.funcionario = funcionario;
+    public CalculadoraDeDescontosService() {
         this.desconto = new FGTS(
                 new INSS(
                     new IRRF(
@@ -20,8 +18,9 @@ public class CalculadoraDeDescontosService {
                                  new ValeTransporte(null))))));
     }
 
-    public Map<String, BigDecimal> calcular() {
+    public Map<String, BigDecimal> calcular(Funcionario funcionario) {
         Map<String, BigDecimal> descontos = this.desconto.calcular(funcionario);
         return descontos;
     }
+
 }

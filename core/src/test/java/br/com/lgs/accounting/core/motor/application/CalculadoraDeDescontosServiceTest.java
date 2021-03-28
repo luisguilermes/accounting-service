@@ -25,8 +25,8 @@ public class CalculadoraDeDescontosServiceTest {
                         .planoSaude(true)
                         .build())
                 .build();
-        service = new CalculadoraDeDescontosService(funcionario);
-        assertTrue(service.calcular().isEmpty());
+        service = new CalculadoraDeDescontosService();
+        assertTrue(service.calcular(funcionario).isEmpty());
     }
 
     @Test
@@ -39,8 +39,8 @@ public class CalculadoraDeDescontosServiceTest {
                         .planoSaude(true)
                         .build())
                 .build();
-        service = new CalculadoraDeDescontosService(funcionario);
-        assertTrue(service.calcular().isEmpty());
+        service = new CalculadoraDeDescontosService();
+        assertTrue(service.calcular(funcionario).isEmpty());
     }
 
     @Test
@@ -53,8 +53,8 @@ public class CalculadoraDeDescontosServiceTest {
                         .planoSaude(true)
                         .build())
                 .build();
-        service = new CalculadoraDeDescontosService(funcionario);
-        Map<String, BigDecimal> descontos = service.calcular();
+        service = new CalculadoraDeDescontosService();
+        Map<String, BigDecimal> descontos = service.calcular(funcionario);
 
         assertTrue(
                 descontos.containsKey("FGTS")

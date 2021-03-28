@@ -8,4 +8,6 @@ public interface FuncionarioPersistencePort {
     Funcionario salvar(Funcionario salvar);
     Optional<Funcionario> buscarPorDocumento(String documento);
     Optional<Funcionario> buscarPorID(Long id);
+
+
 }

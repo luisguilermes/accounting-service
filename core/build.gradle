@@ -2,12 +2,17 @@ plugins {
     id 'java'
 }
 
-group 'br.com.lgs.accounting.domain'
+group 'br.com.lgs.accounting.core'
 version '1.0-SNAPSHOT'
 
 dependencies {
+//    compileOnly 'org.projectlombok:lombok'
+//    annotationProcessor 'org.projectlombok:lombok'
+
     implementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     implementation 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+//    implementation 'org.mockito:mockito-core:3.8.0'
+    implementation 'org.mockito:mockito-junit-jupiter:3.8.0'
 
 }
 

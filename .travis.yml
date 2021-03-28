@@ -1,0 +1,22 @@
+language: java
+jdk:
+  - openjdk11
+dist: trusty
+before_install:
+  - chmod +x gradlew
+
+jobs:
+  include:
+    - stage: unit tests
+    - stage: deploy
+      if: branch = master
+
+#deploy:
+#  provider: heroku:git
+#  app: accounting-service
+#  api_key:
+#    secure: <API_KEY_ENCRYPTED>
+#  edge: true
+#  on:
+#    branch: master
+

@@ -1,5 +1,3 @@
 rootProject.name = 'accounting-service'
-include 'domain'
-include 'application'
 include 'core'
 

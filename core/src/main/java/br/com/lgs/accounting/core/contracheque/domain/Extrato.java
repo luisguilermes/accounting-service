@@ -1,16 +1,15 @@
 package br.com.lgs.accounting.core.contracheque.domain;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public class Extrato {
-    private final LocalDate referencia;
+    private final String referencia;
     private final List<Lancamento> lancamentos;
     private final double salarioBruto;
     private final double totalDescontos;
     private final double salarioLiquido;
 
-    public Extrato(LocalDate referencia, List<Lancamento> lancamentos, double salarioBruto, double totalDescontos, double salarioLiquido) {
+    public Extrato(String referencia, List<Lancamento> lancamentos, double salarioBruto, double totalDescontos, double salarioLiquido) {
         this.referencia = referencia;
         this.lancamentos = lancamentos;
         this.salarioBruto = salarioBruto;
@@ -18,7 +17,7 @@ public class Extrato {
         this.salarioLiquido = salarioLiquido;
     }
 
-    public LocalDate getReferencia() {
+    public String getReferencia() {
         return referencia;
     }
 

@@ -20,4 +20,8 @@ public class Lancamento {
     public BigDecimal getValor() {
         return valor;
     }
+
+    public String getDescricao() {
+        return descricao;
+    }
 }

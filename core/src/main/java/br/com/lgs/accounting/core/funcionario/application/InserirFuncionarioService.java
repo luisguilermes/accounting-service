@@ -8,19 +8,18 @@ import br.com.lgs.accounting.core.funcionario.domain.Beneficio;
 import br.com.lgs.accounting.core.funcionario.domain.Funcionario;
 import br.com.lgs.accounting.core.motor.application.CalculadoraDeDescontosService;
 
+import javax.inject.Named;
 import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Named
 public class InserirFuncionarioService implements InserirFuncionarioUseCase {
 
     private final FuncionarioPersistencePort funcionarioPersistencePort;
-    private final CalculadoraDeDescontosService calculadoraDeDescontosService;
 
-    public InserirFuncionarioService(FuncionarioPersistencePort funcionarioPersistencePort, CalculadoraDeDescontosService calculadoraDeDescontosService) {
+    public InserirFuncionarioService(FuncionarioPersistencePort funcionarioPersistencePort) {
         this.funcionarioPersistencePort = funcionarioPersistencePort;
-        this.calculadoraDeDescontosService = calculadoraDeDescontosService;
     }
 
     @Override
@@ -52,7 +51,7 @@ public class InserirFuncionarioService implements InserirFuncionarioUseCase {
     }
 
     private void easterEggEhTrabalhoEscravo(Funcionario funcionario) {
-        Map<String, BigDecimal> descontos = calculadoraDeDescontosService.calcular(funcionario);
+        Map<String, BigDecimal> descontos = new CalculadoraDeDescontosService().calcular(funcionario);
         BigDecimal reduce = descontos.entrySet().stream()
                 .map(item -> item.getValue()).collect(Collectors.toList())
                 .stream().reduce(BigDecimal.ZERO, BigDecimal::add);

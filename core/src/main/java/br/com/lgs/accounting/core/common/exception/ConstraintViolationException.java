@@ -11,18 +11,7 @@ public class ConstraintViolationException extends IllegalArgumentException {
         this.violations = violations;
     }
 
-    public ConstraintViolationException(String s, Set<ConstraintViolation<Object>> violations) {
-        super(s);
-        this.violations = violations;
-    }
-
-    public ConstraintViolationException(String message, Throwable cause, Set<ConstraintViolation<Object>> violations) {
-        super(message, cause);
-        this.violations = violations;
-    }
-
-    public ConstraintViolationException(Throwable cause, Set<ConstraintViolation<Object>> violations) {
-        super(cause);
-        this.violations = violations;
+    public Set<ConstraintViolation<Object>> getViolations() {
+        return violations;
     }
 }

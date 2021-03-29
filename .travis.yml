@@ -3,13 +3,19 @@ jdk:
   - openjdk11
 dist: trusty
 before_install:
+  - export TZ=GMT-3
   - chmod +x gradlew
 
-jobs:
-  include:
-    - stage: unit tests
-    - stage: deploy
-      if: branch = master
+deploy:
+  provider: heroku
+  api_key:
+    - secure: $SECURE_KEY
+  app: $APP
+#jobs:
+#  include:
+#    - stage: unit tests
+#    - stage: deploy
+#      if: branch = master
 
 #deploy:
 #  provider: heroku:git

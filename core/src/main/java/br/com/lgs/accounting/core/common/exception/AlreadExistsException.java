@@ -1,11 +1,9 @@
 package br.com.lgs.accounting.core.common.exception;
 
 public class AlreadExistsException extends BaseRuntimeException{
-    public AlreadExistsException(String daf) {
+
+    public AlreadExistsException(String message) {
+        super(message);
     }
 
-    @Override
-    public String getExceptionKey() {
-        return null;
-    }
 }

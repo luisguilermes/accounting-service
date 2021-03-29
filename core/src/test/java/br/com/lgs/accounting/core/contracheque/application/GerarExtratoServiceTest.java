@@ -11,7 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import javax.swing.text.html.Option;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -22,14 +21,12 @@ import static org.mockito.ArgumentMatchers.any;
 
 public class GerarExtratoServiceTest {
     private RecuperarFuncionarioUseCase recuperarFuncionarioUseCase;
-    private CalculadoraDeDescontosService calculadoraDeDescontosService;
     private GerarExtratoService service;
 
     @BeforeEach
     void init() {
         this.recuperarFuncionarioUseCase = Mockito.mock(RecuperarFuncionarioUseCase.class);
-        this.calculadoraDeDescontosService = Mockito.mock(CalculadoraDeDescontosService.class);
-        this.service = new GerarExtratoService(recuperarFuncionarioUseCase, calculadoraDeDescontosService);
+        this.service = new GerarExtratoService(recuperarFuncionarioUseCase);
     }
 
     @Test
@@ -41,7 +38,6 @@ public class GerarExtratoServiceTest {
 
         assertThrows(NotFoundException.class, () -> this.service.gerar(query));
         Mockito.verify(recuperarFuncionarioUseCase, Mockito.times(1)).pesquisar(any());
-        Mockito.verify(calculadoraDeDescontosService, Mockito.times(0)).calcular(any());
     }
 
     @Test
@@ -53,7 +49,6 @@ public class GerarExtratoServiceTest {
 
         assertThrows(NotFoundException.class, () -> this.service.gerar(query));
         Mockito.verify(recuperarFuncionarioUseCase, Mockito.times(1)).pesquisar(any());
-        Mockito.verify(calculadoraDeDescontosService, Mockito.times(0)).calcular(any());
     }
 
     @Test
@@ -66,7 +61,6 @@ public class GerarExtratoServiceTest {
 
         assertThrows(NotFoundException.class, () -> this.service.gerar(query));
         Mockito.verify(recuperarFuncionarioUseCase, Mockito.times(1)).pesquisar(any());
-        Mockito.verify(calculadoraDeDescontosService, Mockito.times(0)).calcular(any());
     }
 
     @Test
@@ -79,32 +73,30 @@ public class GerarExtratoServiceTest {
 
         assertThrows(NotFoundException.class, () -> this.service.gerar(query));
         Mockito.verify(recuperarFuncionarioUseCase, Mockito.times(1)).pesquisar(any());
-        Mockito.verify(calculadoraDeDescontosService, Mockito.times(0)).calcular(any());
     }
 
     @Test
     void deveRetornarUmExtratoComSucesso(){
         GerarExtratoUseCase.GerarExtratoQuery query = new GerarExtratoUseCase.GerarExtratoQuery(1L, 1, 2021);
-        var map = new HashMap<String, BigDecimal>();
-        map.put("FGTS", BigDecimal.valueOf(320));
-        map.put("INSS", BigDecimal.valueOf(415.33));
         Optional<Funcionario> funcionario = Optional.of(new Funcionario.Builder()
                 .dataAdmissao(LocalDate.of(2020, 2, 1))
                 .salario(BigDecimal.valueOf(4000))
+                .beneficio(new Beneficio.Builder()
+                        .valeTransporte(true)
+                        .planoDental(true)
+                        .planoSaude(true).build())
                 .build());
 
         Mockito.when(recuperarFuncionarioUseCase.pesquisar(any())).thenReturn(funcionario);
-        Mockito.when(calculadoraDeDescontosService.calcular(any())).thenReturn(map);
 
         Extrato extrato = this.service.gerar(query);
 
-        assertTrue(extrato.getReferencia().isEqual(LocalDate.of(2021, 1, 1)));
+        assertEquals(extrato.getReferencia(), "1/2021");
         assertEquals(extrato.getSalarioBruto(), 4000);
-        assertEquals(-735.33, extrato.getTotalDescontos());
-        assertEquals(extrato.getSalarioLiquido(), 3264.67);
-        assertEquals(extrato.getLancamentos().size(), 3);
+        assertEquals(-1706.46, extrato.getTotalDescontos());
+        assertEquals(extrato.getSalarioLiquido(), 2293.54);
+        assertEquals(extrato.getLancamentos().size(), 7);
 
         Mockito.verify(recuperarFuncionarioUseCase, Mockito.times(1)).pesquisar(any());
-        Mockito.verify(calculadoraDeDescontosService, Mockito.times(1)).calcular(any());
     }
 }

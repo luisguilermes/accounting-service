@@ -6,7 +6,6 @@ import br.com.lgs.accounting.core.common.exception.ConstraintViolationException;
 import br.com.lgs.accounting.core.funcionario.application.port.in.InserirFuncionarioUseCase;
 import br.com.lgs.accounting.core.funcionario.application.port.out.FuncionarioPersistencePort;
 import br.com.lgs.accounting.core.funcionario.domain.Funcionario;
-import br.com.lgs.accounting.core.motor.application.CalculadoraDeDescontosService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -18,19 +17,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 
 
 public class InserirFuncionarioServiceTest {
     private InserirFuncionarioService service;
     private FuncionarioPersistencePort funcionarioPersistencePort;
-    private CalculadoraDeDescontosService calculadoraDeDescontosService;
+
     @BeforeEach
     void init() {
         this.funcionarioPersistencePort = Mockito.mock(FuncionarioPersistencePort.class);
-        this.calculadoraDeDescontosService = Mockito.mock(CalculadoraDeDescontosService.class);
-        this.service = new InserirFuncionarioService(funcionarioPersistencePort, calculadoraDeDescontosService);
+        this.service = new InserirFuncionarioService(funcionarioPersistencePort);
     }
 
     @Test
@@ -141,22 +140,15 @@ public class InserirFuncionarioServiceTest {
     void naoDeveCriarFuncionarioComValorDeDescontosMaiorQueSalario() {
         var command = new InserirFuncionarioUseCase
                 .InserirFuncionarioCommand("Jon", "Snow",
-                "55366975018", "Logistica", new BigDecimal("1100"),
+                "55366975018", "Logistica", new BigDecimal("20"),
                 LocalDate.now(), true, true, true);
-        var map = new HashMap<String, BigDecimal>();
-        map.put("FGTS", BigDecimal.valueOf(320));
-        map.put("INSS", BigDecimal.valueOf(900));
 
         Mockito.when(funcionarioPersistencePort.buscarPorDocumento(any()))
                 .thenReturn(Optional.empty());
-        Mockito.when(calculadoraDeDescontosService.calcular(any()))
-                .thenReturn(map);
 
         assertThrows(BusinessRuleException.class, () -> service.inserir(command));
         Mockito.verify(funcionarioPersistencePort, Mockito.times(1)).buscarPorDocumento(any());
-        Mockito.verify(calculadoraDeDescontosService, Mockito.times(1)).calcular(any());
         Mockito.verify(funcionarioPersistencePort, Mockito.times(0)).salvar(any());
-
     }
 
     @Test
@@ -173,7 +165,6 @@ public class InserirFuncionarioServiceTest {
 
         assertDoesNotThrow(() -> service.inserir(command));
         Mockito.verify(funcionarioPersistencePort, Mockito.times(1)).buscarPorDocumento(any());
-        Mockito.verify(calculadoraDeDescontosService, Mockito.times(1)).calcular(any());
         Mockito.verify(funcionarioPersistencePort, Mockito.times(1)).salvar(any());
     }
 }

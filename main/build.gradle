@@ -1,0 +1,14 @@
+plugins {
+    id "org.springframework.boot" version "2.3.3.RELEASE"
+}
+
+dependencies {
+    implementation project(':core')
+    implementation project(':adapters:adapter-rest')
+    implementation project(':adapters:adapter-persistence-mem')
+    implementation ('org.springframework.boot:spring-boot-starter')
+}
+
+test {
+    useJUnitPlatform()
+}

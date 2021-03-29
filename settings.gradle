@@ -1,3 +1,7 @@
 rootProject.name = 'accounting-service'
 include 'core'
+include 'adapters:adapter-rest'
+include 'main'
+include 'adapters:adapter-persistence-mem'
+findProject(':adapters:adapter-persistence-mem')?.name = 'adapter-persistence-mem'
 

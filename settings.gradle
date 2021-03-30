@@ -1,9 +1,8 @@
 rootProject.name = 'accounting-service'
 include 'core'
+include 'application'
+
 include 'adapters:adapter-rest'
-include 'main'
 include 'adapters:adapter-persistence-mem'
-findProject(':adapters:adapter-persistence-mem')?.name = 'adapter-persistence-mem'
 include 'adapters:adapter-persistence'
-findProject(':adapters:adapter-persistence')?.name = 'adapter-persistence'
 

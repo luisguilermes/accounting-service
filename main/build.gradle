@@ -12,7 +12,7 @@ jar {
 dependencies {
     implementation project(':core')
     implementation project(':adapters:adapter-rest')
-    implementation project(':adapters:adapter-persistence-mem')
+    implementation project(':adapters:adapter-persistence')
     implementation ('org.springframework.boot:spring-boot-starter')
 }
 

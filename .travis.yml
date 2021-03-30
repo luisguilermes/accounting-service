@@ -3,20 +3,22 @@ jdk:
   - openjdk11
 dist: trusty
 before_install:
+  - export TZ=GMT-3
   - chmod +x gradlew
-
 jobs:
   include:
-    - stage: unit tests
+    - stage: test
+    - stage: build docker image
+      if: branch = master
+      script:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker build -t $DOCKER_USERNAME/accounting-service:$TRAVIS_BUILD_ID .
+        - docker tag $DOCKER_USERNAME/accounting-service:$TRAVIS_BUILD_ID $DOCKER_USERNAME/accounting-service:latest
+        - docker images
+        - docker push $DOCKER_USERNAME/accounting-service:$TRAVIS_BUILD_ID
+        - docker push $DOCKER_USERNAME/accounting-service:latest
     - stage: deploy
       if: branch = master
-
-#deploy:
-#  provider: heroku:git
-#  app: accounting-service
-#  api_key:
-#    secure: <API_KEY_ENCRYPTED>
-#  edge: true
-#  on:
-#    branch: master
-
+      provider: heroku
+      api_key: $SECURE_KEY
+      app: $APP

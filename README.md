@@ -24,7 +24,7 @@ Aplicação responsável por criar o extrato da folha salarial dos funcionários
 * Documentacao
   
 
-    Acessar: https://localhost:8080/swagger-ui.html
+    Acessar: http://localhost:8080/swagger-ui.html
 
 3 - Executar via em linha de comando
 
@@ -35,7 +35,7 @@ Aplicação responsável por criar o extrato da folha salarial dos funcionários
 * Documentacao
   
 
-    Acessar: https://localhost:8080/swagger-ui.html
+    Acessar: http://localhost:8080/swagger-ui.html
 
 
 

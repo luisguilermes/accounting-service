@@ -1,5 +1,7 @@
 package br.com.lgs.accounting.rest.payload;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -9,6 +11,7 @@ public class CreateFuncionarioRequest {
     private String documento;
     private String setor;
     private BigDecimal salario;
+    @ApiModelProperty(notes="Formato data yyyy-MM-dd.")
     private LocalDate dataAdmissao;
     private Boolean planoSaude;
     private Boolean planoDental;

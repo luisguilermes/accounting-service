@@ -8,6 +8,9 @@ import br.com.lgs.accounting.rest.payload.CreateFuncionarioRequest;
 import br.com.lgs.accounting.rest.payload.CreateFuncionarioResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +30,12 @@ public class FuncionarioController {
     }
 
     @ApiOperation(value = "Registrar funcionário.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Retorna o id do funcionario criado"),
+            @ApiResponse(code = 400, message = "Atributos informados no payload com valores incorretos."),
+            @ApiResponse(code = 422, message = "Ocorreu algum erro de negócio."),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
+    })
     @PostMapping
     public ResponseEntity<CreateFuncionarioResponse> criarFuncionario(@RequestBody CreateFuncionarioRequest data) {
         Long funcionarioId = inserirFuncionarioUseCase.inserir(FuncionarioMapper.toInserirCommand(data));
@@ -34,6 +43,11 @@ public class FuncionarioController {
     }
 
     @ApiOperation(value = "Recuperar funcionário pelo id.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Retorna funcionário"),
+            @ApiResponse(code = 404, message = "Não encontrado funcionário para o id informado"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
+    })
     @GetMapping("/{id}")
     public ResponseEntity<Funcionario> buscarFuncionarioPorId(@PathVariable Long id) {
         Optional<Funcionario> funcionario = recuperarFuncionarioUseCase.pesquisar(FuncionarioMapper.toRecuperarFuncionarioQuery(id));

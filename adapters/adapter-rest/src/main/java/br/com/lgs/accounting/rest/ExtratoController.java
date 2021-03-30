@@ -5,6 +5,8 @@ import br.com.lgs.accounting.core.contracheque.application.port.in.GerarExtratoU
 import br.com.lgs.accounting.core.contracheque.domain.Extrato;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +25,12 @@ public class ExtratoController {
     }
 
     @ApiOperation(value = "Gerar o último contracheque ou o da data selecionada.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Retorna o extrato para o id do funcionario criado"),
+            @ApiResponse(code = 404, message = "Usuario não encontrado ou data de admissão do funcionário posterior a data solicitada.."),
+            @ApiResponse(code = 422, message = "Ocorreu algum erro de negócio."),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
+    })
     @GetMapping("/funcionario/{id}")
     public ResponseEntity<Extrato> extratoParaFuncionario(@PathVariable Long id,
                                                           @RequestParam Optional<Integer> mes,

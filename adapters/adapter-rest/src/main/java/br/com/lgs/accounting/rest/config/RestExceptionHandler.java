@@ -1,8 +1,8 @@
-package br.com.lgs.accounting.config;
+package br.com.lgs.accounting.rest.config;
 
 import br.com.lgs.accounting.core.common.exception.*;
-import br.com.lgs.accounting.payload.ErrorMessageResponse;
-import br.com.lgs.accounting.payload.FIeldsErrorsResponse;
+import br.com.lgs.accounting.rest.payload.ErrorMessageResponse;
+import br.com.lgs.accounting.rest.payload.FIeldsErrorsResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

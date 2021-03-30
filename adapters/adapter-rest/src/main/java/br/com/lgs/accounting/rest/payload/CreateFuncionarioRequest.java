@@ -1,4 +1,4 @@
-package br.com.lgs.accounting.payload;
+package br.com.lgs.accounting.rest.payload;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -13,6 +13,22 @@ public class CreateFuncionarioRequest {
     private Boolean planoSaude;
     private Boolean planoDental;
     private Boolean valeTransporte;
+
+    public CreateFuncionarioRequest() {
+    }
+
+    public CreateFuncionarioRequest(String nome, String sobrenome, String documento, String setor,
+                                    BigDecimal salario, LocalDate dataAdmissao, Boolean planoSaude, Boolean planoDental, Boolean valeTransporte) {
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+        this.documento = documento;
+        this.setor = setor;
+        this.salario = salario;
+        this.dataAdmissao = dataAdmissao;
+        this.planoSaude = planoSaude;
+        this.planoDental = planoDental;
+        this.valeTransporte = valeTransporte;
+    }
 
     public String getNome() {
         return nome;

@@ -1,4 +1,4 @@
-package br.com.lgs.accounting.payload;
+package br.com.lgs.accounting.rest.payload;
 
 public class CreateFuncionarioResponse {
     private Long id;

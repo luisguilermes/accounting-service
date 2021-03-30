@@ -13,9 +13,15 @@ dependencies {
     implementation project(':core')
     implementation project(':adapters:adapter-rest')
     implementation project(':adapters:adapter-persistence')
+
     implementation ('org.springframework.boot:spring-boot-starter')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation 'org.springframework.boot:spring-boot-starter-web'
 }
 
 test {
     useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
 }

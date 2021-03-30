@@ -25,6 +25,15 @@ public class FGTSTest {
     }
 
     @Test
+    void deveRetornarScala2() {
+        Funcionario funcionario = new Funcionario.Builder().salario(new BigDecimal("1045")).build();
+        Map<String, BigDecimal> valorDesconto = desconto.calcular(funcionario);
+        assertTrue(
+                valorDesconto.containsKey("FGTS")
+                        && valorDesconto.get("FGTS").doubleValue() == 83.60);
+    }
+
+    @Test
     void deveRetornarCalculoDoPercentualDeDesconto() {
         Funcionario funcionario = new Funcionario.Builder().salario(new BigDecimal("1045")).build();
         Map<String, BigDecimal> valorDesconto = desconto.calcular(funcionario);

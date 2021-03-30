@@ -19,6 +19,8 @@ jobs:
         - docker push $DOCKER_USERNAME/accounting-service:latest
     - stage: deploy
       if: branch = master
-      provider: heroku
-      api_key: $SECURE_KEY
-      app: $APP
+      script: skip
+      deploy:
+        provider: heroku
+        api_key: $SECURE_KEY
+        app: $APP

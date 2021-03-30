@@ -24,3 +24,5 @@ jobs:
         provider: heroku
         api_key: $SECURE_KEY
         app: $APP
+        on:
+          branch: main

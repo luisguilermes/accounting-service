@@ -1,8 +1,8 @@
-package br.com.lgs.accounting.mapper;
+package br.com.lgs.accounting.rest.mapper;
 
 import br.com.lgs.accounting.core.funcionario.application.port.in.InserirFuncionarioUseCase.InserirFuncionarioCommand;
 import br.com.lgs.accounting.core.funcionario.application.port.in.RecuperarFuncionarioUseCase.RecuperarFuncionarioQuery;
-import br.com.lgs.accounting.payload.CreateFuncionarioRequest;
+import br.com.lgs.accounting.rest.payload.CreateFuncionarioRequest;
 
 public class FuncionarioMapper {
 

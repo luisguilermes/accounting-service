@@ -1,0 +1,30 @@
+---
+version: '3.7'
+services:
+  db:
+    image: mariadb:10.3
+    ports:
+      - 3306:3306
+    networks:
+      - accounting-service-network
+    environment:
+      - MYSQL_DATABASE=app_db
+      - MYSQL_ROOT_PASSWORD=123456
+  app:
+    image: luisguilermes/accounting-service:latest
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    networks:
+      - accounting-service-network
+    restart: on-failure
+    environment:
+      - DB_URL=jdbc:mariadb://db:3306/app_db
+      - DB_USERNAME=root
+      - DB_PASSWORD=123456
+      - PROFILE=docker
+
+networks:
+  accounting-service-network:
+    driver: bridge

@@ -1,17 +1,20 @@
-package br.com.lgs.accounting;
+package br.com.lgs.accounting.rest;
 
 import br.com.lgs.accounting.core.funcionario.application.port.in.InserirFuncionarioUseCase;
 import br.com.lgs.accounting.core.funcionario.application.port.in.RecuperarFuncionarioUseCase;
 import br.com.lgs.accounting.core.funcionario.domain.Funcionario;
-import br.com.lgs.accounting.mapper.FuncionarioMapper;
-import br.com.lgs.accounting.payload.CreateFuncionarioRequest;
-import br.com.lgs.accounting.payload.CreateFuncionarioResponse;
+import br.com.lgs.accounting.rest.mapper.FuncionarioMapper;
+import br.com.lgs.accounting.rest.payload.CreateFuncionarioRequest;
+import br.com.lgs.accounting.rest.payload.CreateFuncionarioResponse;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
 @RestController
+@Api(tags = "Funcionarios", description = "API de funcionarios")
 @RequestMapping("/api/v1/funcionarios")
 public class FuncionarioController {
 
@@ -23,12 +26,14 @@ public class FuncionarioController {
         this.recuperarFuncionarioUseCase = recuperarFuncionarioUseCase;
     }
 
+    @ApiOperation(value = "Registrar funcionário.")
     @PostMapping
     public ResponseEntity<CreateFuncionarioResponse> criarFuncionario(@RequestBody CreateFuncionarioRequest data) {
         Long funcionarioId = inserirFuncionarioUseCase.inserir(FuncionarioMapper.toInserirCommand(data));
         return ResponseEntity.ok(new CreateFuncionarioResponse(funcionarioId));
     }
 
+    @ApiOperation(value = "Recuperar funcionário pelo id.")
     @GetMapping("/{id}")
     public ResponseEntity<Funcionario> buscarFuncionarioPorId(@PathVariable Long id) {
         Optional<Funcionario> funcionario = recuperarFuncionarioUseCase.pesquisar(FuncionarioMapper.toRecuperarFuncionarioQuery(id));

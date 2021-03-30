@@ -9,7 +9,7 @@ jobs:
   include:
     - stage: test
     - stage: build docker image
-      if: branch = master
+      if: branch = main
       script:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker build -t $DOCKER_USERNAME/accounting-service:$TRAVIS_BUILD_ID .
@@ -18,7 +18,7 @@ jobs:
         - docker push $DOCKER_USERNAME/accounting-service:$TRAVIS_BUILD_ID
         - docker push $DOCKER_USERNAME/accounting-service:latest
     - stage: deploy
-      if: branch = master
+      if: branch = main
       script: skip
       deploy:
         provider: heroku

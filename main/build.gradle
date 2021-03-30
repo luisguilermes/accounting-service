@@ -2,6 +2,13 @@ plugins {
     id "org.springframework.boot" version "2.3.3.RELEASE"
 }
 
+buildDir = "$rootDir/build"
+
+jar {
+    archivesBaseName = "accounting-service"
+    archiveVersion = '1.0-SNAPSHOT'
+}
+
 dependencies {
     implementation project(':core')
     implementation project(':adapters:adapter-rest')
